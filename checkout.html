@@ -1,0 +1,182 @@
+<!-- Peng -->
+<!DOCTYPE html>
+
+<head>
+    <title> Checkout </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+
+<body>
+    <div id="pagecontainer">
+        <header>
+            <div>Happy Holidays, UP TO 90% OFF</div>
+        </header>
+        <nav>
+            <a href="index.html"><img id="logo" src="images/logo.png"></a>
+            <div id="searchbar">
+                <input id="searchbox" type="text" placeholder="What are you looking for">
+                <a id="search" href="index.html"><img class="icon" src="images/search.png"></a>
+            </div>
+            <div id="menu">
+                <a href="index.html">Shop</a>
+                <a href="cart.html"><img class="icon" src="images/cart.png" alt="shopping cart"><span
+                        class="nav-text">Cart</span>
+                </a>
+                <a href="login.html"><img class="icon" src="images/user.png" alt="login"><span
+                        class="nav-text">Login</span></a>
+            </div>
+        </nav>
+
+        <main>
+            <div id="wrapper">
+                <div id="order-details">
+                    <h3>Order Details</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products">
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Subtotal</td>
+                                <td id="subtotal"></td>
+                            </tr>
+                            <tr>
+                                <td>HST(13%)</td>
+                                <td id="hst"></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td id="total"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div id="shipping-details">
+                    <h3>Shipping Details</h3>
+                    <form id="shipping-form" action="order.php" method="POST">
+                        <div class="row">
+                            <label for="firstname">First name *</label>
+                            <input type="text" id="firstname" name="firstname">
+                        </div>
+
+                        <div class="row">
+                            <label for="lastname">Last name *</label>
+                            <input type="text" id="lastname" name="lastname">
+                        </div class="row">
+
+                        <div class="row">
+                            <label for="address">Address *</label>
+                            <input type="text" id="address" name="address">
+                        </div>
+
+                        <div class="row">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" name="city">
+                        </div>
+
+                        <div class="row">
+                            <label>Province *</label>
+                            <select name="province" id="province">
+                                <option>Alberta</option>
+                                <option>British Columbia</option>
+                                <option>Manitoba</option>
+                                <option>New Brunswick</option>
+                                <option>Newfoundland and Labrador</option>
+                                <option>Northwest Territories</option>
+                                <option>Nova Scotia</option>
+                                <option>Nunavut</option>
+                                <option selected="selected">Ontario</option>
+                                <option>Prince Edward Island</option>
+                                <option>Quebec</option>
+                                <option>Saskachewan</option>
+                                <option>Yukon Territory</option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <label for="postal-code">Postal code *</label>
+                            <input type="text" id="postal-code" name="postal-code">
+                        </div>
+
+                        <div class="row">
+                            <label for="phone">Phone *</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="row">
+                            <label for="email">Email *</label>
+                            <input type="mail" id="email" name="email">
+                        </div>
+
+                        <div class="row" id="order-notes-wrapper">
+                            <label for="order-notes">Order notes (optional)</label>
+                            <textarea id="order-notes" name="order-notes"
+                                placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+                        </div>
+
+                        <div class="row" id="submit-wrapper">
+                            <button type="submit" id="submit" class="submit">PLACE ORDER</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="submit-dialog" title="Order placed">
+                    <p>
+                        <span class="ui-icon ui-icon-circle-check"></span>
+                        Your order has been placed successfully.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div id="nav-container">
+                <div class="item">
+                    <h3>Policies</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping</a></li>
+                        <li><a href="refound.html">Refund</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="item">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="faq.html">Support center & FAQ</a></li>
+                        <li><a href="protection.html">Purchase protection</a></li>
+                        <li><a href="sitemap.html">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="item">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Mail: <a href="mailto:support@chocolatefactory.com">support@chocolatefactory.com</a></li>
+                        <li>Tel: <a href="tel:226-899-9999">226-899-9999</a></li>
+                        <li>
+                            <img class="icon" src="images/facebook-logo.png" alt="facebook">
+                            <img class="icon" src="images/instagram-logo.png" alt="instagram">
+                            <img class="icon" src="images/linkedin.png" alt="linkedin">
+                            <img class="icon" src="images/twitter-logo.png" alt="twitter">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p id="copyright">Copywrite @copy 1990-2100 by Chocolate Factory. All Rights Reserved.</p>
+        </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/cart-data.js"></script>
+    <script src="./js/checkout.js"></script>
+</body>
+
+</html>
