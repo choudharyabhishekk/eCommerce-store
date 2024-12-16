@@ -1,4 +1,3 @@
-// Abhishek Choudhary / 8939027
 $(document).ready(function () {
   var startIndex = 0;
   var endIndex = 9;
@@ -10,31 +9,111 @@ $(document).ready(function () {
     productsToShow.forEach((product) => {
       const productDiv = $(`<div class="product" id=${product.id}>`);
       productDiv.html(`
-    <img src="${product.image}" alt="${[product.name]}" id=${product.id}>
-     <div class="product-content" id=${product.id}>
-      <div class="product-title">${product.name}</div>
-     <div class="product-price">$${product.price}</div>
-     <button class="btn-add-to-cart" id=${product.id}>Add to Cart</button>
-   </div></div>
-    `);
+        <img src="${product.image}" alt="${product.name}" id=${product.id}>
+        <div class="product-content" id=${product.id}>
+          <div class="product-title">${product.name}</div>
+          <div class="product-price">$${product.price}</div>
+          <button class="btn-add-to-cart" id=${product.id}>Add to Cart</button>
+        </div>
+      `);
       productListDiv.append(productDiv);
       productDiv.fadeIn("slow");
     });
   };
 
-  //loading the initial products and BX slider
+  // Search functionality
+  function performSearch() {
+    const searchTerm = $("#searchbox").val().trim().toLowerCase();
+
+    // Check if the product-list element exists
+    if ($("#product-list").length === 0) {
+      // Redirect to the index page and pass the search term as a query parameter
+      window.location.href = `index.html?search=${encodeURIComponent(
+        searchTerm
+      )}`;
+      return;
+    }
+
+    const productListDiv = $("#product-list");
+
+    // Clear existing products
+    productListDiv.empty();
+
+    // Filter products based on search term
+    const filteredProducts = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
+    );
+
+    // Display filtered products
+    if (filteredProducts.length > 0) {
+      filteredProducts.forEach((product) => {
+        const productDiv = $(`<div class="product" id=${product.id}>`);
+        productDiv.html(`
+          <img src="${product.image}" alt="${product.name}" id=${product.id}>
+          <div class="product-content" id=${product.id}>
+            <div class="product-title">${product.name}</div>
+            <div class="product-price">$${product.price}</div>
+            <button class="btn-add-to-cart" id=${product.id}>Add to Cart</button>
+          </div>
+        `);
+        productListDiv.append(productDiv);
+        productDiv.fadeIn("slow");
+      });
+
+      // Hide load more button if all products are shown
+      $("#loadProducts").hide();
+    } else {
+      // No products found
+      productListDiv.html(`
+        <div class="no-results">
+          <p>No products found matching your search.</p>
+        </div>
+      `);
+
+      // Hide load more button
+      $("#loadProducts").hide();
+    }
+  }
+
+  // Event listener for search icon click
+  $("#search").on("click", function (e) {
+    e.preventDefault(); // Prevent page reload
+    performSearch();
+  });
+
+  // Event listener for Enter key in search box
+  $("#searchbox").on("keypress", function (e) {
+    if (e.which === 13) {
+      // Enter key
+      e.preventDefault();
+      performSearch();
+    }
+  });
+
+  // Check for search term in URL and perform search if present
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchTerm = urlParams.get("search");
+  if (searchTerm) {
+    $("#searchbox").val(decodeURIComponent(searchTerm));
+    performSearch();
+  }
+
+  // Loading the initial products and BX slider
   $(".bxslider").bxSlider({
     auto: true,
     pause: 3000,
   });
   displayProducts(startIndex, endIndex);
 
+  // Open clicked product in the products page
   $("#product-list").on("click", ".product img", function (e) {
     var selectedProductID = $(this).attr("id");
     window.location.href = `product-page.html?id=${selectedProductID}`;
   });
 
-  // add to cart button event listener
+  // Add to cart button event listener
   function handleAddToCartClick(e) {
     e.preventDefault();
     if ($(this).text() === "Proceed to Checkout") {
@@ -47,32 +126,7 @@ $(document).ready(function () {
   }
   $("#product-list").on("click", ".btn-add-to-cart", handleAddToCartClick);
 
-  //button event listener for individual product page
-
-  $(".product-container").on("click", ".btn-add-to-cart", function (e) {
-    e.preventDefault();
-
-    addToCart($(this).attr("id"));
-    $(this).css("background-color", "#a33115");
-
-    window.location.href = "cart.html";
-  });
-
-  // event listener for related products
-
-  $("#related-products-slider").on(
-    "click",
-    ".btn-add-to-cart",
-    handleAddToCartClick
-  );
-
-  $("#loadProducts").click(() => {
-    startIndex = endIndex;
-    endIndex = products.length;
-    displayProducts(startIndex, endIndex);
-  });
-
-  // function to open clicked product in products page
+  // Individual product page handling
   const productPageDetails = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get("id");
@@ -83,30 +137,27 @@ $(document).ready(function () {
       collapsible: true,
       active: false,
     });
-    // Update the HTML elements on  individual products page
+
+    // Update the HTML elements on the individual products page
     $("#product_image").attr("src", productDetails.image);
     $(".btn-add-to-cart").attr("id", productDetails.id);
     $("#product_title").text(productDetails.name);
     $("#product_price").text(`$${productDetails.price}`);
     $("#product_description").text(productDetails.description);
   };
-  $(".bxslider").bxSlider({
-    auto: true,
-    pause: 3000,
-  });
 
-  // load related products in individual products page
+  // Related products on individual product page
   const relatedProducts = $("#related-products-container");
   const productsToShow = products.slice(0, 8);
   productsToShow.forEach((product) => {
     const productDiv = $(`<div class="product" id=${product.id}>`);
     productDiv.html(`
-    <img src="${product.image}" alt="${product.name}">
-     <div class="product-content" id=${product.id}>
-      <div class="product-title">${product.name}</div>
-     <div class="product-price">$${product.price}</div>
-     <button class="btn-add-to-cart" id=${product.id}>Add to Cart</button>
-   </div></div>
+      <img src="${product.image}" alt="${product.name}">
+      <div class="product-content" id=${product.id}>
+        <div class="product-title">${product.name}</div>
+        <div class="product-price">$${product.price}</div>
+        <button class="btn-add-to-cart" id=${product.id}>Add to Cart</button>
+      </div>
     `);
     relatedProducts.append(productDiv);
   });
@@ -121,15 +172,21 @@ $(document).ready(function () {
     arrows: false,
   });
 
-  // reviews form event handler
-
+  // Reviews form event handler
   $("#review-form").submit(function (e) {
     e.preventDefault();
     alert("Thank you for your review!");
   });
 
-  // Call the productPageDetails function in individual products page load
+  // Call the productPageDetails function if on individual product page
   if (window.location.pathname.includes("product-page.html")) {
     productPageDetails();
   }
+
+  // Load more products
+  $("#loadProducts").click(() => {
+    startIndex = endIndex;
+    endIndex = products.length;
+    displayProducts(startIndex, endIndex);
+  });
 });

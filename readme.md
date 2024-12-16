@@ -1,7 +1,3 @@
-Sure! Here's a README for your fully functional eCommerce website built with Vanilla JS and Pure CSS:
-
----
-
 # eCommerce Website
 
 This is a fully functional eCommerce website built using Vanilla JavaScript and Pure CSS. The website includes features such as user login/sign-up, product details, shopping cart, checkout, and is fully responsive for mobile devices.

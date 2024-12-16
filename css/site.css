@@ -128,6 +128,10 @@ nav a:hover {
   border: none;
 }
 
+#searchbox:focus {
+  outline: none;
+}
+
 #search {
   display: inline-block;
   width: 20px;
@@ -426,6 +430,12 @@ button:hover {
   background-color: var(--primary-color);
 }
 
+.slider .bxslider img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* Footer Styles */
 footer {
   margin-top: var(--spacing-medium);
@@ -488,6 +498,10 @@ footer .icon {
 
 /* Media Queries for Responsive Design */
 @media (max-width: 800px) {
+  nav {
+    flex-direction: column;
+    margin-bottom: 20xp;
+  }
   .products-listings {
     grid-template-columns: 1fr;
     gap: 20px;
