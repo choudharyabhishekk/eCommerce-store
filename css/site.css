@@ -513,6 +513,10 @@ footer .icon {
   }
 }
 
+.review-container > h2 {
+  text-align: center;
+}
+
 /* Utility Classes and Overrides */
 .content > p {
   font-size: 16px;
